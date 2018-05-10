@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>jQuery ajax jsonp 请求</title>
+</head>
+<body>
+<div id="box">
+    <input type="text" placeholder="请输入搜索内容" id="input">
+    <p id="text"></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#input').on('change', function () {
+      var data = $(this).val()
+      $.ajax({
+        url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+        type: 'GET',
+        data: {wd: data},
+        dataType: 'jsonp',  //指定服务器返回的数据类型
+        jsonp: 'cb', // 传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+        jsonpCallback: 'sug',  //指定回调函数名称
+        success: function (data) {
+          console.log(data)
+          var result = JSON.stringify(data) //json对象转成字符串
+          $('#text').text(result)
+        },
+        error:function (error) {
+          console.log(error)
+        }
+      })
+    })
+  })
+</script>
+</body>
+</html>
+

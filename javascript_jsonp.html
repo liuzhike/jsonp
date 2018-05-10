@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>原生js中jsonp请求</title>
+</head>
+
+<body>
+<div id="box">
+    <input type="text" placeholder="请输入搜索内容" id="input" onchange="changeValFn(this)">
+    <p id="text"></p>
+</div>
+<script type="text/javascript">
+    var boxEl = document.getElementById('box')
+    var textEl = document.getElementById('text')
+  //  script 标签中 src 加载的资源，服务端返回的一个方法，方法传的参数就是需要的数据
+    function cbFn(data){
+      console.log('回调'+JSON.stringify(data));
+      textEl.innerText = JSON.stringify(data)
+    }
+// input 值改变
+  function changeValFn(ev){
+      var data = ev.value
+    var scriptEl = document.createElement('script')
+    console.log('ev_'+ev.value);
+    scriptEl.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+data+'&cb=cbFn'
+    boxEl.appendChild(scriptEl)
+  }
+</script>
+</body>
+</html>
